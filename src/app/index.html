@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tubely</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
     <script type="module" src="app.js"></script>
   </head>
@@ -72,9 +78,7 @@
         </div>
 
         <div id="video-upload-forms">
-          <form
-            id="thumbnail-upload-form"
-          >
+          <form id="thumbnail-upload-form">
             <h3>Update Thumbnail</h3>
             <input
               type="file"
@@ -87,9 +91,7 @@
           </form>
 
           <div id="video-container">
-            <form
-              id="video-file-upload-form"
-            >
+            <form id="video-file-upload-form">
               <h3>Update Video File</h3>
               <input type="file" id="video-file" accept="video/*" required />
               <button type="submit" id="upload-video-btn">Upload</button>

@@ -1,183 +1,479 @@
+/* --- Google Fonts Import (Add this to your HTML <head> section as instructed above) --- */
+
+/* --- Core Variables for a Modern Dark Theme (Slightly refined) --- */
 :root {
-  --bg-color: #1e1e1e;
-  --fg-color: #f5f5f5;
-  --subtle-color: #888;
-  --primary-color: #bb86fc;
-  --input-bg: #2a2a2a;
-  --input-border: #444;
-  --button-bg: #7e57c2;
-  --button-hover: #5c4db1;
+  /* Main Colors */
+  --bg-color: #1a1a2e; /* Deep dark blue-purple background */
+  --fg-color: #e0e0e0; /* Off-white for text */
+  --subtle-color: #a0a0a0; /* Lighter grey for subtle text */
+  --primary-color: #bb86fc; /* Main accent purple */
+  --primary-color-dark: #9f73dd; /* Darker purple for hover/active */
+  --secondary-accent: #03dac6; /* Teal accent (can be used for highlights if needed) */
+
+  /* Surface / Card Colors */
+  --surface-1: #2c2c44; /* Slightly lighter than bg, for main cards/sections */
+  --surface-2: #3f3f5a; /* Lighter still, for inputs, list items */
+
+  /* Border & Shadow Colors */
+  --border-color: #5a5a7d; /* Muted border color */
+  --shadow-color-light: rgba(0, 0, 0, 0.2); /* For subtle depth */
+  --shadow-color-heavy: rgba(0, 0, 0, 0.4); /* For elevated elements */
+
+  /* Spacing System (slightly more generous default) */
+  --spacing-xxs: 4px;
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+
+  /* Border Radii */
+  --border-radius-sm: 8px; /* Used for buttons, inputs, smaller elements */
+  --border-radius-md: 12px; /* Used for cards, larger containers */
+  --border-radius-lg: 16px; /* Used for main sections */
+
+  /* Transitions */
+  --transition-speed: 0.25s;
+  --transition-ease: ease-out;
 }
 
+/* --- Base Styles --- */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: "Inter", sans-serif; /* Modern body font */
   background-color: var(--bg-color);
   color: var(--fg-color);
   line-height: 1.6;
+  font-size: 16px; /* Default font size */
+  -webkit-font-smoothing: antialiased; /* Smoother font rendering */
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.nav-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--bg-color);
-  padding: 10px 24px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+/* --- Typography --- */
+h1,
+h2,
+h3 {
+  font-family: "Montserrat", sans-serif; /* Distinct heading font */
+  color: var(--primary-color);
+  margin-top: 0;
+  margin-bottom: var(--spacing-md);
+  font-weight: 600; /* Semi-bold for headings */
+}
+
+h1 {
+  font-size: 2.5rem; /* Consistent large size */
+  text-align: left;
+  line-height: 1.1;
 }
 
 .nav-bar h1 {
   margin: 0;
-  color: var(--primary-color);
   display: flex;
-  align-items: center;
-}
-
-.nav-bar button {
-  background-color: var(--button-bg);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.nav-bar button:hover {
-  background-color: var(--button-hover);
-}
-
-h1 {
-  color: var(--primary-color);
-  margin-bottom: 16px;
-  margin-left: 24px;
+  align-items: baseline;
+  gap: var(--spacing-xxs);
+  flex-wrap: wrap;
 }
 
 .subtitle {
   color: var(--subtle-color);
-  font-size: 0.5em;
-  margin-left: 10px;
+  font-size: 0.4em;
+  font-family: "Inter", sans-serif;
+  white-space: nowrap;
+  opacity: 0.8;
 }
 
 h2 {
-  color: var(--primary-color);
-  margin-bottom: 16px;
+  font-size: 2rem; /* Consistent H2 size */
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  padding-top: var(--spacing-lg);
+}
+
+h3 {
+  font-size: 1.5rem; /* Consistent H3 size */
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  color: var(--fg-color);
+}
+
+/* --- Navigation Bar --- */
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--surface-1);
+  padding: var(--spacing-md) var(--spacing-xl);
+  box-shadow: 0 4px 15px var(--shadow-color-heavy);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom-left-radius: var(--border-radius-md);
+  border-bottom-right-radius: var(--border-radius-md);
+}
+
+.nav-bar button {
+  background-color: var(--primary-color-dark);
+  color: var(--fg-color);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-weight: 500;
+}
+
+.nav-bar button:hover {
+  background-color: var(--primary-color);
+}
+
+/* --- Main Sections & Cards --- */
+#auth-section,
+#video-section {
+  max-width: 900px; /* Slightly adjusted max-width for consistency */
+  margin: var(--spacing-xxl) auto;
+  padding: var(--spacing-xl);
+  background-color: var(--surface-1);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 10px 30px var(--shadow-color-heavy);
+  flex-grow: 1;
+  border: 1px solid var(--border-color);
+}
+
+#auth-section {
+  max-width: 450px; /* Login section remains narrower */
+  padding: var(--spacing-lg);
+}
+
+/* --- Forms --- */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
 }
 
 .input-area {
   width: 100%;
-  padding: 10px;
-  border: 1px solid var(--input-border);
-  border-radius: 5px;
-  background-color: var(--input-bg);
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--surface-2);
   color: var(--fg-color);
   box-sizing: border-box;
+  font-size: 1rem;
+  transition:
+    border-color var(--transition-speed) var(--transition-ease),
+    box-shadow var(--transition-speed) var(--transition-ease);
 }
 
+.input-area::placeholder {
+  color: var(--subtle-color);
+  opacity: 0.7;
+}
+
+.input-area:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(187, 134, 252, 0.3);
+}
+
+/* --- Buttons --- */
 button {
-  padding: 10px 20px;
+  padding: var(--spacing-md) var(--spacing-lg);
   border: none;
-  border-radius: 5px;
-  background-color: var(--button-bg);
-  color: #fff;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--primary-color);
+  color: var(--bg-color);
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition:
+    background-color var(--transition-speed) var(--transition-ease),
+    transform 0.1s var(--transition-ease),
+    box-shadow var(--transition-speed) var(--transition-ease);
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 2px 5px var(--shadow-color-light);
 }
 
 button:hover {
-  background-color: var(--button-hover);
+  background-color: var(--primary-color-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--shadow-color-heavy);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px var(--shadow-color-light);
+}
+
+button[disabled] {
+  background-color: var(--subtle-color);
+  color: var(--fg-color);
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
+  box-shadow: none;
 }
 
 .button-container {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+  flex-wrap: wrap; /* Allow wrapping if buttons get too wide */
 }
 
-#video-display {
-  border-top: 2px solid #333;
-  padding-top: 20px;
-  margin-top: 20px;
+/* Login/Signup Buttons: Always Horizontal and centered, no responsive change here */
+#auth-section .button-container {
+  flex-direction: row; /* FORCE horizontal layout */
+  justify-content: center; /* Center buttons within the container */
+  gap: var(--spacing-md); /* Consistent gap */
+}
+#auth-section .button-container button {
+  flex-grow: 0; /* Do not allow these buttons to grow to fill space */
+  width: auto; /* Let content and padding define width */
+  padding: var(--spacing-md) var(--spacing-xl); /* Generous padding */
+  min-width: 120px; /* Ensure a decent minimum width */
 }
 
+/* --- Video List --- */
 #video-list {
   list-style: none;
   padding: 0;
-  margin-top: 10px;
+  margin-top: var(--spacing-lg);
+  display: grid;
+  gap: var(--spacing-sm);
 }
 
 #video-list li {
-  padding: 10px;
-  margin-top: 5px;
-  background-color: #1e1e1e;
-  border-radius: 5px;
+  padding: var(--spacing-md);
+  background-color: var(--surface-2);
+  border-radius: var(--border-radius-sm);
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition:
+    background-color var(--transition-speed) var(--transition-ease),
+    transform 0.1s var(--transition-ease),
+    box-shadow var(--transition-speed) var(--transition-ease);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border-color);
+}
+
+#video-list li:hover:not(.active) {
+  background-color: #4a4a6b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px var(--shadow-color-light);
 }
 
 #video-list .active {
   background-color: var(--primary-color);
-  color: #000;
+  color: var(--bg-color);
+  font-weight: 600;
+  box-shadow: 0 4px 10px var(--shadow-color-heavy);
+  border-color: var(--primary-color);
 }
 
-#video-list li:hover {
-  background-color: #333;
+/* --- Video Display Section --- */
+#video-display {
+  border-top: 1px solid var(--border-color);
+  padding-top: var(--spacing-xl);
+  margin-top: var(--spacing-xl);
 }
 
-#thumbnail-image,
-#video-player {
-  max-width: 300px;
-  margin-left: 10px;
-  vertical-align: middle;
+#video-title-display {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--fg-color);
+  margin-bottom: var(--spacing-sm);
+  text-align: center;
 }
 
-#auth-section {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
+#video-description-display {
+  background-color: var(--surface-2);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  margin-bottom: var(--spacing-lg);
+  color: var(--fg-color);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  border: 1px solid var(--border-color);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-#video-section {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-form {
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* Space between form elements */
-}
-
+/* --- Video Upload Forms --- */
 #video-upload-forms {
   display: flex;
-  gap: 20px; /* Space between the two forms */
+  gap: var(--spacing-xl);
+  flex-wrap: wrap; /* Allows forms to wrap */
+  margin-top: var(--spacing-xl);
 }
 
 #thumbnail-upload-form,
 #video-container {
-  background-color: #1a1a1a;
-  padding: 20px;
-  border-radius: 5px;
+  background-color: var(--surface-1);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 4px 15px var(--shadow-color-heavy);
   flex: 1;
+  min-width: 300px; /* Minimum width before wrapping to ensure they don't get tiny */
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  border: 1px solid var(--border-color);
 }
 
-#download-button,
-#video-player {
-  margin-top: 0.5rem;
+/* --- File Input Custom Styling --- */
+input[type="file"] {
   width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--surface-2);
+  color: var(--fg-color);
+  box-sizing: border-box;
+  font-size: 0.95rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-#video-upload-forms form {
-  flex: 1;
+input[type="file"]::-webkit-file-upload-button {
+  visibility: hidden;
+}
+input[type="file"]::before {
+  content: "Choose File";
+  display: inline-block;
+  background: var(--primary-color-dark);
+  color: var(--fg-color);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-xxs) var(--spacing-sm);
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background-color var(--transition-speed) var(--transition-ease);
+  margin-right: var(--spacing-sm);
+}
+input[type="file"]:hover::before {
+  background: var(--primary-color);
+}
+input[type="file"]:active::before {
+  background: var(--primary-color-dark);
 }
 
+/* --- Media Previews --- */
+#thumbnail-image,
+#video-player {
+  /* Crucial: Ensure display: block by default so JS can set to none */
+  display: block;
+  width: 100%; /* Fill parent width */
+  height: auto; /* Maintain aspect ratio */
+  max-width: 100%; /* Ensure it doesn't overflow its container */
+  border-radius: var(--border-radius-sm);
+  margin-top: var(--spacing-md);
+  background-color: #000; /* Black background for placeholder */
+  object-fit: contain; /* Prevents cropping, fits content entirely */
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 8px var(--shadow-color-light);
+  /* Added specific properties to prevent overflow */
+  overflow: hidden; /* Hide any overflow within the element's box */
+}
+
+#thumbnail-image {
+  max-height: 250px; /* Sensible max height */
+}
+
+#video-player {
+  max-height: 400px; /* Sensible max height */
+}
+
+/* --- Utility Classes --- */
 .mb-4 {
-  margin-bottom: 16px;
+  margin-bottom: var(--spacing-md);
 }
 
-button[disabled] {
-  background-color: var(--subtle-color);
-  cursor: not-allowed;
+/* --- Responsive Adjustments (Minimal changes to sizing, focus on layout stacking) --- */
+
+@media (max-width: 992px) {
+  /* Only adjust margins/padding on main sections, not individual element sizes */
+  #auth-section,
+  #video-section {
+    margin: var(--spacing-xl) var(--spacing-lg);
+    padding: var(--spacing-lg);
+  }
+
+  .nav-bar {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  /* File upload forms stack vertically here */
+  #video-upload-forms {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+  #thumbnail-upload-form,
+  #video-container {
+    min-width: unset; /* Allow full width when stacked */
+  }
+}
+
+@media (max-width: 768px) {
+  /* Navigation Bar stacks */
+  .nav-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--spacing-md);
+    border-radius: 0;
+  }
+  .nav-bar h1 {
+    margin-bottom: var(--spacing-sm);
+    margin-left: 0;
+  }
+  .nav-bar .subtitle {
+    margin-left: 0;
+  }
+  .nav-bar button {
+    width: 100%;
+  }
+
+  /* Main section margins/padding */
+  #auth-section,
+  #video-section {
+    margin: var(--spacing-lg) var(--spacing-sm);
+    padding: var(--spacing-md);
+  }
+
+  /* General button containers in video section: Stack vertically */
+  #video-section .button-container {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  #video-section .button-container button {
+    width: 100%; /* Full width when stacked */
+  }
+}
+
+/* Smaller mobile devices (less aggressive font/padding changes) */
+@media (max-width: 480px) {
+  /* Only mininal adjustments for very small screens */
+  h1 {
+    font-size: 2.2rem;
+  }
+  h2 {
+    font-size: 1.8rem;
+  }
+  h3 {
+    font-size: 1.3rem;
+  }
+  .input-area,
+  button {
+    padding: var(--spacing-sm);
+  }
+
+  #auth-section,
+  #video-section {
+    margin: var(--spacing-md) var(--spacing-xs);
+  }
 }
