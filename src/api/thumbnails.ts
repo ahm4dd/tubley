@@ -6,37 +6,6 @@ import type { BunFile, BunRequest } from "bun";
 import { BadRequestError, NotFoundError, UserForbiddenError } from "./errors";
 import path from "path";
 
-type Thumbnail = {
-  data: BunFile;
-  mediaType: string;
-};
-
-const videoThumbnails: Map<string, Thumbnail> = new Map();
-
-export async function handlerGetThumbnail(cfg: ApiConfig, req: BunRequest) {
-  const { videoId } = req.params as { videoId?: string };
-  if (!videoId) {
-    throw new BadRequestError("Invalid video ID");
-  }
-
-  const video = getVideo(cfg.db, videoId);
-  if (!video) {
-    throw new NotFoundError("Couldn't find video");
-  }
-
-  const thumbnail = videoThumbnails.get(videoId);
-  if (!thumbnail) {
-    throw new NotFoundError("Thumbnail not found");
-  }
-
-  return new Response(thumbnail.data, {
-    headers: {
-      "Content-Type": thumbnail.mediaType,
-      "Cache-Control": "no-store",
-    },
-  });
-}
-
 export async function handlerUploadThumbnail(cfg: ApiConfig, req: BunRequest) {
   const { videoId } = req.params as { videoId?: string };
   if (!videoId) {
@@ -74,11 +43,6 @@ export async function handlerUploadThumbnail(cfg: ApiConfig, req: BunRequest) {
   }
 
   const url = `http://localhost:${cfg.port}/assets/${videoId}.${fileExtension}`;
-  const thumbnail: Thumbnail = {
-    data: Bun.file(path.join(cfg.assetsRoot, `/${videoId}.${fileExtension}`)),
-    mediaType: file.type,
-  };
-  videoThumbnails.set(videoId, thumbnail);
   video.thumbnailURL = url;
   updateVideo(cfg.db, video);
 
