@@ -2,11 +2,12 @@ import { getBearerToken, validateJWT } from "../auth";
 import { respondWithJSON } from "./json";
 import { getVideo, getVideos, updateVideo } from "../db/videos";
 import type { ApiConfig } from "../config";
-import type { BunRequest } from "bun";
+import type { BunFile, BunRequest } from "bun";
 import { BadRequestError, NotFoundError, UserForbiddenError } from "./errors";
+import path from "path";
 
 type Thumbnail = {
-  data: string;
+  data: BunFile;
   mediaType: string;
 };
 
@@ -58,7 +59,11 @@ export async function handlerUploadThumbnail(cfg: ApiConfig, req: BunRequest) {
     throw new BadRequestError("File too large");
   }
 
-  const data = Buffer.from(await file.arrayBuffer()).toString("base64");
+  const fileExtension = file.type.split("/")[1];
+  await Bun.write(
+    path.join(cfg.assetsRoot, `/${videoId}.${fileExtension}`),
+    file,
+  );
 
   const video = getVideo(cfg.db, videoId);
   if (!video) {
@@ -68,15 +73,13 @@ export async function handlerUploadThumbnail(cfg: ApiConfig, req: BunRequest) {
     throw new UserForbiddenError("Not authorized to update this video");
   }
 
+  const url = `http://localhost:${cfg.port}/assets/${videoId}.${fileExtension}`;
   const thumbnail: Thumbnail = {
-    data: data,
+    data: Bun.file(path.join(cfg.assetsRoot, `/${videoId}.${fileExtension}`)),
     mediaType: file.type,
   };
-
   videoThumbnails.set(videoId, thumbnail);
-  const url = `data:${file.type};base64,${data}`;
   video.thumbnailURL = url;
-
   updateVideo(cfg.db, video);
 
   return respondWithJSON(200, video);
