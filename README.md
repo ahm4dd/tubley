@@ -1,6 +1,6 @@
 ## Quickstart
 
-*This is to be used as a*reference\* in case you need it.
+\*This is to be used as a reference in case you need it.
 
 ## 1. Install dependencies
 
@@ -48,7 +48,7 @@ Copy the `.env.example` file to `.env` and fill in the values.
 cp .env.example .env
 ```
 
-You'll need to update values in the `.env` file to match your configuration, but *you won't need to do anything here until the course tells you to*.
+You'll need to update values in the `.env` file to match your configuration, but _you won't need to do anything here until the course tells you to_.
 
 ## 3. Run the server
 
