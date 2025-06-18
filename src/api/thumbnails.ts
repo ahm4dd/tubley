@@ -29,6 +29,14 @@ export async function handlerUploadThumbnail(cfg: ApiConfig, req: BunRequest) {
   }
 
   const fileExtension = file.type.split("/")[1];
+  if (
+    fileExtension !== "jpg" &&
+    fileExtension !== "jpeg" &&
+    fileExtension !== "png"
+  ) {
+    throw new BadRequestError("Unsupported file type");
+  }
+
   await Bun.write(
     path.join(cfg.assetsRoot, `/${videoId}.${fileExtension}`),
     file,

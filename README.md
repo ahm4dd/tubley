@@ -1,3 +1,5 @@
+> The project is currently in development (Paused due to AWS being funny)
+
 ## Quickstart
 
 \*This is to be used as a reference in case you need it.
